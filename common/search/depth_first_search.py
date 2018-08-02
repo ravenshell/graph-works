@@ -37,10 +37,11 @@ class DFS:
             for predecessor in self._graph[vertex]:
 
                 # if predecessor is our terminus
-                if predecessor == self._terminus:
+                if predecessor == self._terminus :
 
                     # add predecessor to the front of stack
-                    self._stack = [predecessor] + self._stack
+                    if predecessor not in self._stack:
+                        self._stack = [predecessor] + self._stack
                     # return our stack of paths
                     return self._stack
                 else:
@@ -66,7 +67,7 @@ class DFS:
     def check_path(self, predecessor):
 
         # check if predecessor is in graph
-        if predecessor in self._graph:
+        if predecessor in self._graph and predecessor is not self._origin:
 
             # transverse predecessor only if
             # predecessor has not been transversed before
@@ -77,7 +78,8 @@ class DFS:
 
                 # add predecessor to stack
                 if predecessor not in self._stack:
-                     self._stack = [predecessor] + self._stack
+                    print("curent state of stack: ", self._stack)
+                    self._stack = [predecessor] + self._stack
 
                 # transverse predecessor
                 self.transverse_path(predecessor)
