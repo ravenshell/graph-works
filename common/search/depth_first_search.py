@@ -1,15 +1,11 @@
-import Queue as q
 
 class DFS:
 
     _origin = None;
     _terminus = None;
     _graph = None;
-
     _transverse_list = []
-
     _stack = []
-
     _predecessor_tree = {}
 
     def __init__(self, graph, origin, terminus):
@@ -29,13 +25,23 @@ class DFS:
 
                 self.check_result(result, vertex)
 
-
-
     def transverse_path(self, vertex):
+        if vertex == self._terminus:
+            return [vertex] + self._stack
 
+        # if vertex is contained as a vertex with
+        # predecessors in graph
         if vertex in self._graph:
+
+            # loop through vertex predecessors
             for predecessor in self._graph[vertex]:
+
+                # if predecessor is our terminus
                 if predecessor == self._terminus:
+
+                    # add predecessor to the front of stack
+                    self._stack = [predecessor] + self._stack
+                    # return our stack of paths
                     return self._stack
                 else:
                     self.check_path(predecessor)
@@ -46,23 +52,34 @@ class DFS:
 
         if result == 0:
             do_nothing = 0
-            # print("could not find a path to terminus at vertex: ", vertex)
+            print("could not find a path to terminus at vertex: ", vertex)
         else:
             print("found path at vertex: ", vertex)
-
-            for vertex in result:
-                print("vertex: ", vertex)
+            print(result)
 
     def clear_temps(self):
+
+        # clear transverse list and stack
         self._transverse_list = []
         self._stack = []
 
     def check_path(self, predecessor):
 
+        # check if predecessor is in graph
         if predecessor in self._graph:
+
+            # transverse predecessor only if
+            # predecessor has not been transversed before
             if predecessor not in self._transverse_list:
+
+                # add predecessor to transverse list
                 self._transverse_list.append(predecessor)
-                self._stack = self._stack + [predecessor]
+
+                # add predecessor to stack
+                if predecessor not in self._stack:
+                     self._stack = [predecessor] + self._stack
+
+                # transverse predecessor
                 self.transverse_path(predecessor)
 
 
