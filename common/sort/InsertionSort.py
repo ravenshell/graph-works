@@ -41,9 +41,19 @@ class InsertionSort:
 
 
 
-data = [3,5, 1, 4, 6]
+# data = [3,5, 1, 4, 6]
+data = [6,5,4,3,2,1]
 ins = InsertionSort(data)
-print(ins.sort())
+# print(ins.sort())
+
+digit = 8
+index = 1
+holder = []
+while digit > 0 :
+    digit = digit - 1
+    holder.append((index, digit))
+    index = index + 1
+    print(holder)
 
 # Simple recursion test
 # ins.recurse(10)
